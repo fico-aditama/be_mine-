@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>你是我心中的唯一，永远爱你 | You’re My Only One, Forever Love</title>
+    <title>你是我生命的光，永远相伴 | You Are My Life’s Light, Forever Together</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -24,7 +26,7 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, rgba(255, 77, 77, 0.4), rgba(255, 215, 0, 0.3), transparent);
+            background: radial-gradient(circle, rgba(255, 77, 77, 0.5), rgba(255, 215, 0, 0.4), transparent);
             pointer-events: none;
             z-index: 2;
         }
@@ -33,18 +35,19 @@
             position: relative;
             z-index: 10;
             transform-style: preserve-3d;
-            perspective: 1200px;
+            perspective: 1500px;
+            padding: 20px;
         }
         h1 {
-            font-size: 4em;
+            font-size: 3.5em;
             color: #fff;
-            text-shadow: 0 0 25px #ff4d4d, 0 0 50px #ffd700, 0 5px 20px rgba(0, 0, 0, 0.9);
+            text-shadow: 0 0 30px #ff4d4d, 0 0 60px #ffd700, 0 5px 25px rgba(0, 0, 0, 0.9);
             animation: pulseLove 2s infinite, floatText 4s infinite ease-in-out;
             padding: 30px;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.8);
             border-radius: 30px;
-            transform: translateZ(60px);
-            line-height: 1.2;
+            transform: translateZ(80px);
+            line-height: 1.3;
         }
         .particle-bg {
             position: absolute;
@@ -57,66 +60,74 @@
         }
         .lantern {
             position: absolute;
-            width: 50px;
-            height: 60px;
+            width: 60px;
+            height: 70px;
             background: #ff4d4d;
             border-radius: 50% 50% 20% 20%;
-            animation: driftLantern 7s ease-in-out infinite;
-            box-shadow: 0 0 30px #ff4d4d, 0 0 60px #ff4d4d;
+            animation: driftLantern 8s ease-in-out infinite;
+            box-shadow: 0 0 40px #ff4d4d, 0 0 80px #ff4d4d;
             transform-origin: top;
         }
         .lantern::before {
             content: '';
             position: absolute;
-            width: 30px;
-            height: 15px;
+            width: 35px;
+            height: 20px;
             background: #ffd700;
-            top: -15px;
-            left: 10px;
+            top: -20px;
+            left: 12.5px;
             border-radius: 50%;
         }
         .star {
             position: absolute;
-            width: 10px;
-            height: 10px;
+            width: 12px;
+            height: 12px;
             background: #ffd700;
             clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
             animation: twinkleStar 3s infinite ease-in-out;
         }
         .heart {
             position: absolute;
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             background: #ff9999;
             transform: rotate(-45deg);
-            animation: heartbeat 5s infinite ease-in-out;
+            animation: heartbeat 4s infinite ease-in-out;
         }
         .heart::before,
         .heart::after {
             content: '';
             position: absolute;
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             background: #ff9999;
             border-radius: 50%;
         }
-        .heart::before { top: -20px; left: 0; }
-        .heart::after { left: 20px; top: 0; }
+        .heart::before { top: -25px; left: 0; }
+        .heart::after { left: 25px; top: 0; }
+        .butterfly {
+            position: absolute;
+            width: 40px;
+            height: 30px;
+            background: linear-gradient(45deg, #ff4d4d, #ffd700);
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            animation: flutter 6s infinite ease-in-out;
+        }
         .yes-btn {
-            padding: 35px 80px;
-            font-size: 2.2em;
+            padding: 40px 100px;
+            font-size: 2.5em;
             font-weight: bold;
             border: none;
-            border-radius: 60px;
+            border-radius: 70px;
             background: linear-gradient(135deg, #ff4d4d, #ffd700);
             color: #fff;
             cursor: pointer;
-            box-shadow: 0 25px 50px rgba(255, 77, 77, 0.7), 0 0 80px rgba(255, 215, 0, 0.5);
-            transition: all 0.6s ease;
+            box-shadow: 0 30px 60px rgba(255, 77, 77, 0.8), 0 0 100px rgba(255, 215, 0, 0.6);
+            transition: all 0.7s ease;
             position: relative;
             overflow: hidden;
             z-index: 5;
-            transform: translateZ(30px);
+            transform: translateZ(40px);
         }
         .yes-btn::before {
             content: '';
@@ -125,77 +136,82 @@
             left: 50%;
             width: 0;
             height: 0;
-            background: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.6);
             border-radius: 50%;
             transform: translate(-50%, -50%);
-            transition: width 0.8s ease, height 0.8s ease;
+            transition: width 0.9s ease, height 0.9s ease;
         }
         .yes-btn:hover::before {
-            width: 500px;
-            height: 500px;
+            width: 600px;
+            height: 600px;
         }
         .yes-btn:hover {
-            transform: scale(1.2) rotateX(15deg) translateZ(40px);
-            box-shadow: 0 40px 80px rgba(255, 77, 77, 0.9), 0 0 120px rgba(255, 215, 0, 0.7);
+            transform: scale(1.25) rotateX(20deg) translateZ(50px);
+            box-shadow: 0 50px 100px rgba(255, 77, 77, 1), 0 0 150px rgba(255, 215, 0, 0.8);
         }
         .no-btn {
             position: absolute;
-            padding: 15px 30px;
-            font-size: 1.5em;
+            padding: 20px 40px;
+            font-size: 1.8em;
             border: none;
-            border-radius: 30px;
+            border-radius: 40px;
             background: #b3b3b3;
             color: #333;
             cursor: pointer;
             transition: all 0.1s ease;
             z-index: 1;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
         }
         .no-btn.active {
-            animation: crazyEscape 0.5s infinite;
+            animation: wildEscape 0.6s infinite;
         }
         .love-burst {
             position: absolute;
-            width: 60px;
-            height: 60px;
+            width: 80px;
+            height: 80px;
             background: linear-gradient(45deg, #ff4d4d, #ffd700);
             border-radius: 50%;
-            animation: loveExplosion 2.5s ease-out forwards;
-            box-shadow: 0 0 40px #ff4d4d;
+            animation: loveExplosion 3s ease-out forwards;
+            box-shadow: 0 0 50px #ff4d4d;
         }
         @keyframes pulseLove {
-            0% { transform: scale(1) translateZ(60px); }
-            50% { transform: scale(1.05) translateZ(60px); }
-            100% { transform: scale(1) translateZ(60px); }
+            0% { transform: scale(1) translateZ(80px); }
+            50% { transform: scale(1.05) translateZ(80px); }
+            100% { transform: scale(1) translateZ(80px); }
         }
         @keyframes floatText {
-            0% { transform: translateY(0) translateZ(60px); }
-            50% { transform: translateY(-40px) translateZ(60px); }
-            100% { transform: translateY(0) translateZ(60px); }
+            0% { transform: translateY(0) translateZ(80px); }
+            50% { transform: translateY(-50px) translateZ(80px); }
+            100% { transform: translateY(0) translateZ(80px); }
         }
         @keyframes driftLantern {
-            0% { transform: translateY(0) rotate(0deg) scale(0.7); opacity: 0; }
-            50% { transform: translateY(-60vh) rotate(20deg) scale(1); opacity: 1; }
-            100% { transform: translateY(-100vh) rotate(-20deg) scale(0.7); opacity: 0; }
+            0% { transform: translateY(0) rotate(0deg) scale(0.6); opacity: 0; }
+            50% { transform: translateY(-70vh) rotate(25deg) scale(1); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(-25deg) scale(0.6); opacity: 0; }
         }
         @keyframes twinkleStar {
             0% { transform: scale(0.5); opacity: 0.3; }
-            50% { transform: scale(1.5); opacity: 1; }
+            50% { transform: scale(1.8); opacity: 1; }
             100% { transform: scale(0.5); opacity: 0.3; }
         }
         @keyframes heartbeat {
-            0% { transform: rotate(-45deg) scale(0.8); opacity: 0; }
-            50% { transform: rotate(-45deg) scale(1.2); opacity: 1; }
-            100% { transform: rotate(-45deg) scale(0.8); opacity: 0; }
+            0% { transform: rotate(-45deg) scale(0.7); opacity: 0; }
+            50% { transform: rotate(-45deg) scale(1.3); opacity: 1; }
+            100% { transform: rotate(-45deg) scale(0.7); opacity: 0; }
         }
-        @keyframes crazyEscape {
+        @keyframes flutter {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            50% { transform: translateY(-50vh) rotate(180deg); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+        @keyframes wildEscape {
             0% { transform: translate(0, 0) rotate(0deg); }
-            100% { transform: translate(calc(80vw * var(--x)), calc(80vh * var(--y))) rotate(${Math.random() * 1800}deg) scale(0.5); }
+            100% { transform: translate(calc(80vw * var(--x)), calc(80vh * var(--y))) rotate(${Math.random() * 2160}deg) scale(0.4); }
         }
         @keyframes loveExplosion {
             0% { transform: scale(0) rotate(0deg); opacity: 1; }
-            50% { transform: scale(2.5) rotate(180deg); opacity: 1; }
-            100% { transform: scale(4) rotate(360deg); opacity: 0; }
+            50% { transform: scale(3) rotate(180deg); opacity: 1; }
+            100% { transform: scale(5) rotate(360deg); opacity: 0; }
         }
     </style>
 </head>
@@ -203,21 +219,25 @@
     <div class="overlay"></div>
     <div class="particle-bg"></div>
     <div class="container">
-        <h1>你是我心中的唯一，永远爱你<br>你是我的月亮，我的星辰，我的全部<br>You’re My Only One, Forever Love</h1>
-        <button class="yes-btn" onclick="eternalLove()">Yes | 是的，我愿意</button>
-        <button class="no-btn" onmouseover="fleeLove()">No | 不要</button>
+        <h1>你是我生命的光，永远相伴<br>我深深爱你，永不分离<br>你是我的唯一，我的星辰，我的永恒<br>You Are My Life’s Light, Forever Together</h1>
+        <button class="yes-btn" onclick="igniteEternity()">Yes | 是的，我愿意和你共创永恒</button>
+        <button class="no-btn" onmouseover="evadeLove()">No | 不要</button>
     </div>
+    <div id="lottie-heart" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 300px; height: 300px; z-index: 1; opacity: 0;"></div>
     <iframe width="0" height="0" src="https://www.youtube.com/embed/5nvuJKNjTWI?autoplay=1&loop=1&playlist=5nvuJKNjTWI" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.10.2/lottie.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script>
-        // Partikel romansa: lentera, bintang, hati
+        // Partikel romansa: lentera, bintang, hati, kupu-kupu
         function spawnLantern() {
             const lantern = document.createElement('div');
             lantern.className = 'lantern';
             lantern.style.left = Math.random() * 100 + 'vw';
             document.querySelector('.particle-bg').appendChild(lantern);
-            setTimeout(() => lantern.remove(), 7000);
+            setTimeout(() => lantern.remove(), 8000);
         }
         function spawnStar() {
             const star = document.createElement('div');
@@ -233,68 +253,104 @@
             heart.style.left = Math.random() * 100 + 'vw';
             heart.style.top = Math.random() * 100 + 'vh';
             document.querySelector('.particle-bg').appendChild(heart);
-            setTimeout(() => heart.remove(), 5000);
+            setTimeout(() => heart.remove(), 4000);
         }
-        setInterval(spawnLantern, 200);
-        setInterval(spawnStar, 100);
-        setInterval(spawnHeart, 150);
+        function spawnButterfly() {
+            const butterfly = document.createElement('div');
+            butterfly.className = 'butterfly';
+            butterfly.style.left = Math.random() * 100 + 'vw';
+            document.querySelector('.particle-bg').appendChild(butterfly);
+            setTimeout(() => butterfly.remove(), 6000);
+        }
+        setInterval(spawnLantern, 150);
+        setInterval(spawnStar, 80);
+        setInterval(spawnHeart, 100);
+        setInterval(spawnButterfly, 200);
 
-        // Tombol No jadi musuh cinta
+        // Lottie Animation
+        const lottieAnim = lottie.loadAnimation({
+            container: document.getElementById('lottie-heart'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: false,
+            path: 'https://assets1.lottiefiles.com/packages/lf20_0qzy17sf.json' // Hati bergetar
+        });
+
+        // Tombol No jadi penutup cinta
         let noAttempts = 0;
-        function fleeLove() {
+        function evadeLove() {
             const noBtn = document.querySelector('.no-btn');
             noAttempts++;
             if (noAttempts > 2) {
                 noBtn.classList.add('active');
                 noBtn.style.setProperty('--x', Math.random() * 2 - 1);
                 noBtn.style.setProperty('--y', Math.random() * 2 - 1);
-                gsap.to(noBtn, { rotation: Math.random() * 1800, scale: 0.5, duration: 0.8, ease: "power4.out" });
+                gsap.to(noBtn, { rotation: Math.random() * 2160, scale: 0.4, duration: 0.9, ease: "power4.out" });
             } else {
                 gsap.to(noBtn, {
-                    x: (Math.random() - 0.5) * 900,
-                    y: (Math.random() - 0.5) * 900,
-                    rotation: Math.random() * 1080,
-                    scale: 1.3,
-                    duration: 0.7,
-                    ease: "elastic.out(1, 0.4)"
+                    x: (Math.random() - 0.5) * 1000,
+                    y: (Math.random() - 0.5) * 1000,
+                    rotation: Math.random() * 1440,
+                    scale: 1.5,
+                    duration: 0.8,
+                    ease: "elastic.out(1, 0.3)"
                 });
             }
             if (noAttempts === 3) {
-                alert("不要拒绝我，我真的好爱你好喜欢你，你是我的命中注定！| Don’t reject me lah, I love you so much, you’re my destiny!");
+                alert("不要走开，我爱你爱到心碎，你是我的灵魂伴侣，永远不放手！| Don’t go lah, I love you till my heart breaks, you’re my soulmate, never letting go!");
             }
         }
 
-        // Cinta abadi saat Yes
-        function eternalLove() {
+        // Eternity Unleashed
+        function igniteEternity() {
             gsap.to(".container", { 
                 opacity: 0, 
-                scale: 0.5, 
-                rotateX: 90, 
-                duration: 1, 
+                scale: 0.3, 
+                rotateX: 120, 
+                duration: 1.2, 
                 ease: "power4.in", 
                 onComplete: () => {
                     document.body.innerHTML = `
                         <div style="text-align: center; font-size: 5em; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-                            <span style="color: #fff; text-shadow: 0 0 30px #ff4d4d, 0 0 60px #ffd700; animation: pulseLove 1.5s infinite;">
-                                我爱你至深至真，我们永远在一起<br>I Love You So Deeply, Forever Together! ❤️
+                            <span style="color: #fff; text-shadow: 0 0 40px #ff4d4d, 0 0 80px #ffd700; animation: pulseLove 1.5s infinite;">
+                                我爱你无尽深情，我们携手一生，永不分离<br>My Endless Love for You, Together Forever! ❤️
                             </span>
-                        </div>`;
-                    setInterval(spawnLantern, 50);
-                    setInterval(spawnStar, 30);
-                    setInterval(spawnHeart, 40);
-                    setInterval(spawnLoveBurst, 80);
+                        </div>
+                        <div id="lottie-celebration" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 500px; height: 500px;"></div>`;
+                    // Lottie Celebration
+                    lottie.loadAnimation({
+                        container: document.getElementById('lottie-celebration'),
+                        renderer: 'svg',
+                        loop: true,
+                        autoplay: true,
+                        path: 'https://assets3.lottiefiles.com/packages/lf20_jtsj6kyl.json' // Hati dan bunga
+                    });
+                    setInterval(spawnLantern, 40);
+                    setInterval(spawnStar, 20);
+                    setInterval(spawnHeart, 30);
+                    setInterval(spawnButterfly, 50);
+                    setInterval(spawnLoveBurst, 60);
+                    setInterval(() => confetti({
+                        particleCount: 100,
+                        spread: 70,
+                        origin: { y: 0.6 },
+                        colors: ['#ff4d4d', '#ffd700', '#ff9999']
+                    }), 500);
                 }
             });
+            lottieAnim.setSpeed(1.5);
+            lottieAnim.play();
+            gsap.to("#lottie-heart", { opacity: 1, duration: 1 });
         }
 
-        // Ledakan cinta kreatif
+        // Ledakan cinta megah
         function spawnLoveBurst() {
             const loveBurst = document.createElement('div');
             loveBurst.className = 'love-burst';
             loveBurst.style.left = Math.random() * 100 + 'vw';
             loveBurst.style.top = Math.random() * 100 + 'vh';
             document.body.appendChild(loveBurst);
-            setTimeout(() => loveBurst.remove(), 2500);
+            setTimeout(() => loveBurst.remove(), 3000);
         }
     </script>
 </body>
