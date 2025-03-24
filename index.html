@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>做我一生的月亮吧 | Be My Moon Forever</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #1a1a1a;
+            font-family: 'Noto Sans SC', sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+        .overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 77, 77, 0.3), rgba(255, 215, 0, 0.2), transparent);
+            pointer-events: none;
+            z-index: 1;
+        }
+        .container {
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        h1 {
+            font-size: 4em;
+            color: #fff;
+            text-shadow: 0 0 20px #ff4d4d, 0 0 40px #ffd700, 0 5px 15px rgba(0, 0, 0, 0.8);
+            animation: glowText 1.5s infinite alternate, floatText 3s infinite ease-in-out;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 20px;
+            transform: translateZ(50px);
+        }
+        .particle-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 5;
+        }
+        .lantern {
+            position: absolute;
+            width: 40px;
+            height: 50px;
+            background: #ff4d4d;
+            border-radius: 50% 50% 20% 20%;
+            animation: swayLantern 6s ease-in-out infinite;
+            box-shadow: 0 0 20px #ff4d4d, 0 0 40px #ff4d4d;
+            transform-origin: top;
+        }
+        .lantern::before {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 15px;
+            background: #ffd700;
+            top: -15px;
+            left: 7.5px;
+            border-radius: 50%;
+        }
+        .flower {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: #ff9999;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            animation: bloomFlower 4s infinite ease-in-out;
+        }
+        .spark {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: #ffd700;
+            border-radius: 50%;
+            animation: sparkTrail 2s ease-out infinite;
+        }
+        .yes-btn {
+            padding: 30px 70px;
+            font-size: 2em;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #ff4d4d, #ffd700);
+            color: #fff;
+            cursor: pointer;
+            box-shadow: 0 20px 40px rgba(255, 77, 77, 0.6), 0 0 60px rgba(255, 215, 0, 0.4);
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 5;
+            transform: translateZ(20px);
+        }
+        .yes-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.7s ease, height 0.7s ease;
+        }
+        .yes-btn:hover::before {
+            width: 400px;
+            height: 400px;
+        }
+        .yes-btn:hover {
+            transform: scale(1.15) rotateX(10deg) translateZ(30px);
+            box-shadow: 0 30px 60px rgba(255, 77, 77, 0.8), 0 0 80px rgba(255, 215, 0, 0.6);
+        }
+        .no-btn {
+            position: absolute;
+            padding: 15px 30px;
+            font-size: 1.5em;
+            border: none;
+            border-radius: 30px;
+            background: #b3b3b3;
+            color: #333;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            z-index: 1;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        .no-btn.active {
+            animation: wildEscape 0.4s infinite;
+        }
+        .firecracker {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(45deg, #ffd700, #ff4d4d);
+            border-radius: 50%;
+            animation: fireBurst 2s ease-out forwards;
+            box-shadow: 0 0 20px #ffd700;
+        }
+        @keyframes glowText {
+            0% { text-shadow: 0 0 20px #ff4d4d, 0 0 40px #ffd700, 0 5px 15px rgba(0, 0, 0, 0.8); }
+            100% { text-shadow: 0 0 40px #ff4d4d, 0 0 80px #ffd700, 0 5px 15px rgba(0, 0, 0, 0.8); }
+        }
+        @keyframes floatText {
+            0% { transform: translateY(0) translateZ(50px); }
+            50% { transform: translateY(-30px) translateZ(50px); }
+            100% { transform: translateY(0) translateZ(50px); }
+        }
+        @keyframes swayLantern {
+            0% { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0; }
+            50% { transform: translateY(-70vh) rotate(15deg) scale(1); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(-15deg) scale(0.8); opacity: 0; }
+        }
+        @keyframes bloomFlower {
+            0% { transform: rotate(0deg) scale(0.5); opacity: 0; }
+            50% { transform: rotate(180deg) scale(1.5); opacity: 1; }
+            100% { transform: rotate(360deg) scale(0.5); opacity: 0; }
+        }
+        @keyframes sparkTrail {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-100vh) scale(0); opacity: 0; }
+        }
+        @keyframes wildEscape {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(calc(80vw * var(--x)), calc(80vh * var(--y))) rotate(${Math.random() * 1440}deg); }
+        }
+        @keyframes fireBurst {
+            0% { transform: scale(0) rotate(0deg); opacity: 1; }
+            50% { transform: scale(3) rotate(180deg); opacity: 1; }
+            100% { transform: scale(5) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+    <div class="particle-bg"></div>
+    <div class="container">
+        <h1>做我一生的月亮吧<br>Be My Moon Forever</h1>
+        <button class="yes-btn" onclick="unleashLove()">Yes | 是的</button>
+        <button class="no-btn" onmouseover="ninjaNo()">No | 不要</button>
+    </div>
+    <iframe width="0" height="0" src="https://www.youtube.com/embed/rRj6NpNfONg?autoplay=1&loop=1&playlist=rRj6NpNfONg" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script>
+        // Partikel lentera, bunga, dan percikan
+        function spawnLantern() {
+            const lantern = document.createElement('div');
+            lantern.className = 'lantern';
+            lantern.style.left = Math.random() * 100 + 'vw';
+            document.querySelector('.particle-bg').appendChild(lantern);
+            setTimeout(() => lantern.remove(), 6000);
+        }
+        function spawnFlower() {
+            const flower = document.createElement('div');
+            flower.className = 'flower';
+            flower.style.left = Math.random() * 100 + 'vw';
+            flower.style.top = Math.random() * 100 + 'vh';
+            document.querySelector('.particle-bg').appendChild(flower);
+            setTimeout(() => flower.remove(), 4000);
+        }
+        function spawnSpark() {
+            const spark = document.createElement('div');
+            spark.className = 'spark';
+            spark.style.left = Math.random() * 100 + 'vw';
+            document.querySelector('.particle-bg').appendChild(spark);
+            setTimeout(() => spark.remove(), 2000);
+        }
+        setInterval(spawnLantern, 250);
+        setInterval(spawnFlower, 150);
+        setInterval(spawnSpark, 100);
+
+        // Tombol No jadi ninja level dewa
+        let noAttempts = 0;
+        function ninjaNo() {
+            const noBtn = document.querySelector('.no-btn');
+            noAttempts++;
+            if (noAttempts > 2) {
+                noBtn.classList.add('active');
+                noBtn.style.setProperty('--x', Math.random() * 2 - 1);
+                noBtn.style.setProperty('--y', Math.random() * 2 - 1);
+                gsap.to(noBtn, { rotation: Math.random() * 1440, scale: 0.8, duration: 0.7, ease: "power4.out" });
+            } else {
+                gsap.to(noBtn, {
+                    x: (Math.random() - 0.5) * 800,
+                    y: (Math.random() - 0.5) * 800,
+                    rotation: Math.random() * 720,
+                    scale: 1.2,
+                    duration: 0.6,
+                    ease: "elastic.out(1, 0.5)"
+                });
+            }
+            if (noAttempts === 3) {
+                alert("别跑了啦，我的心要碎了！| Don’t run lah, my heart’s breaking!");
+            }
+        }
+
+        // Ledakan cinta epik
+        function unleashLove() {
+            gsap.to(".container", { opacity: 0, duration: 0.5, onComplete: () => {
+                document.body.innerHTML = `
+                    <div style="text-align: center; font-size: 5em; animation: glowText 1s infinite alternate; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                        <span style="color: #fff; text-shadow: 0 0 20px #ff4d4d, 0 0 40px #ffd700;">
+                            你是我的全世界 | You’re My Whole World! ❤️
+                        </span>
+                    </div>`;
+                setInterval(spawnLantern, 80);
+                setInterval(spawnFlower, 40);
+                setInterval(spawnFirecracker, 60);
+            }});
+        }
+
+        // Petasan spektakuler
+        function spawnFirecracker() {
+            const firecracker = document.createElement('div');
+            firecracker.className = 'firecracker';
+            firecracker.style.left = Math.random() * 100 + 'vw';
+            firecracker.style.top = Math.random() * 100 + 'vh';
+            document.body.appendChild(firecracker);
+            setTimeout(() => firecracker.remove(), 2000);
+        }
+    </script>
+</body>
+</html>
