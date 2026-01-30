@@ -24,7 +24,7 @@ This project is ready for Vercel.
 3.  Import the repo/folder.
 4.  Deploy! 
 
-You will get a URL like `https://be-mine-collection.vercel.app`.
+You will get a URL like `https://be-mine-gamma.vercel.app`.
 
 ## 🛠️ Customization
 
