@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Windows 95 - Love.exe</title>
+    <style>
+        body { background: #008080; font-family: 'MS Sans Serif', Geneva, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; cursor: url('https://w95.expunge.world/cursor.png'), auto; }
+        .window { background: #c0c0c0; width: 400px; border: 2px solid white; border-right-color: #404040; border-bottom-color: #404040; box-shadow: 2px 2px 5px rgba(0,0,0,0.5); }
+        .title-bar { background: #000080; color: white; padding: 2px 5px; font-weight: bold; display: flex; justify-content: space-between; align-items: center; }
+        .btn-close { background: #c0c0c0; border: 1px solid white; border-right-color: #404040; border-bottom-color: #404040; width: 16px; height: 14px; font-size: 10px; line-height: 10px; text-align: center; cursor: pointer; }
+        .content { padding: 20px; text-align: center; }
+        .icon-large { font-size: 3rem; margin-bottom: 10px; }
+        .message { margin-bottom: 20px; font-size: 14px; }
+        .btn-95 { background: #c0c0c0; border: 2px solid white; border-right-color: #404040; border-bottom-color: #404040; padding: 5px 15px; font-family: inherit; font-size: 12px; cursor: pointer; margin: 0 5px; }
+        .btn-95:active { border: 2px solid #404040; border-right-color: white; border-bottom-color: white; }
+    </style>
+</head>
+<body>
+    <div class="window" id="win">
+        <div class="title-bar">
+            <span>Critical Error: Heart Not Found</span>
+            <button class="btn-close" onclick="alert('You cannot close love!')">x</button>
+        </div>
+        <div class="content">
+            <div class="icon-large">💔 ➡️ ❤️</div>
+            <div class="message">
+                System has detected a missing component: <b>CELINE</b>.<br><br>
+                Without this component, f.adi.exe cannot function properly.<br><br>
+                Do you want to install 'Love_v2026' now?
+            </div>
+            <div style="margin-top: 20px;">
+                <button class="btn-95" onclick="installLove()">Yes</button>
+                <button class="btn-95" id="btn-no" onmouseover="moveNo()">No</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function moveNo() {
+            const btn = document.getElementById('btn-no');
+            btn.style.position = 'absolute';
+            btn.style.left = Math.random() * 300 + 'px';
+            btn.style.top = Math.random() * 300 + 'px';
+        }
+        function installLove() {
+            document.querySelector('.message').innerHTML = "Installing... <br>[||||||||||||||||||] 100%<br><br><b>Installation Complete!</b><br>You are now my girlfriend.";
+            document.querySelector('.icon-large').innerHTML = "💿❤️";
+            document.querySelectorAll('.btn-95').forEach(b => b.style.display = 'none');
+        }
+    </script>
+</body>
+</html>

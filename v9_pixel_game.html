@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Level 1: Start Relationship</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        body { background: #000; color: #fff; font-family: 'Press Start 2P', cursive; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .game-container { border: 4px solid white; padding: 20px; max-width: 600px; position: relative; }
+        h1 { color: #ff0000; text-shadow: 4px 4px #0000ff; line-height: 1.5; font-size: 20px; }
+        .pixel-heart { font-size: 60px; animation: pulse 1s infinite; margin: 20px; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+        .stats { display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 10px; color: #00ff00; }
+        .text-box { border: 2px solid white; padding: 10px; text-align: left; margin-top: 20px; height: 80px; font-size: 12px; line-height: 1.5; }
+        .options { display: flex; justify-content: center; gap: 20px; margin-top: 20px; }
+        button { background: #000; color: #fff; font-family: 'Press Start 2P', cursive; border: 2px solid #fff; padding: 10px 20px; cursor: pointer; }
+        button:hover { background: #fff; color: #000; }
+    </style>
+</head>
+<body>
+    <div class="stats">
+        <span>PLAYER: F.ADI</span>
+        <span>HP: 100/100</span>
+        <span>TOKEN: CELINE</span>
+    </div>
+    
+    <div class="game-container">
+        <div class="pixel-heart">❤️</div>
+        <h1>QUEST AVAILABLE!</h1>
+        <div class="text-box" id="dialogue">
+            A wild CELINE appeared!<br>
+            She is super cute and talented.<br>
+            What will F.ADI do?
+        </div>
+        
+        <div class="options">
+            <button onclick="propose()">ATTACK WITH LOVE</button>
+            <button onclick="alert('You cannot run from destiny!')">RUN</button>
+        </div>
+    </div>
+
+    <script>
+        function propose() {
+            const dialogue = document.getElementById('dialogue');
+            dialogue.innerHTML = "F.ADI used 'BE MINE'!<br>It's super effective!<br>Will CELINE accept?";
+            
+            document.querySelector('.options').innerHTML = `
+                <button onclick="victory()">YES</button>
+                <button onclick="victory()">DEFINITELY</button>
+            `;
+        }
+
+        function victory() {
+             document.body.innerHTML = `
+                <h1 style="color:yellow; font-size:40px;">VICTORY!</h1>
+                <p>New Teammate Acquired: Girlfriend!</p>
+                <div class="pixel-heart">💖</div>
+             `;
+        }
+    </script>
+</body>
+</html>

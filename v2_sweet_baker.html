@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Recipe for You 🧁</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #d4a373; /* Gold/Crust */
+            --cream: #fefae0;
+            --pink: #ffafcc;
+            --dark-pink: #cdb4db;
+            --text: #4a4e69;
+        }
+
+        body {
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #fdfbf7 0%, #ffe5ec 100%);
+            font-family: 'Nunito', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            color: var(--text);
+        }
+
+        /* Cherry Blossom / Sweet Background Animation */
+        .bg-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .floating-item {
+            position: absolute;
+            font-size: 1.5rem;
+            opacity: 0.3;
+            animation: floatUp 15s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+            50% { opacity: 0.5; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Main Card - Recipe Style */
+        .card-container {
+            position: relative;
+            width: 90%;
+            max-width: 450px;
+            height: 600px; /* Fixed height for consistency */
+            perspective: 1000px;
+            z-index: 10;
+        }
+
+        .card {
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(226, 175, 204, 0.3);
+            border: 2px solid #fff;
+            padding: 30px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.6s ease-in-out, opacity 0.4s;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none; /* Disable clicks on hidden cards */
+        }
+
+        .card.active {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
+        }
+
+        .card.exit {
+            transform: translateY(-50px) scale(0.95);
+            opacity: 0;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.8rem;
+            color: #d8829d;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: #6d6875;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #ffafcc, #bde0fe);
+            border: none;
+            padding: 12px 35px;
+            border-radius: 50px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 175, 204, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(255, 175, 204, 0.6);
+        }
+
+        .icon-main {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            display: block;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Final Buttons */
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            position: relative;
+            width: 100%;
+            justify-content: center;
+            height: 60px;
+        }
+
+        .btn-no {
+            background: #e2e2e2;
+            color: #888;
+            box-shadow: none;
+            position: relative; /* Default position */
+            z-index: 20; /* Make sure it's on top */
+        }
+
+        /* Start Overlay */
+        #opener {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fff0f3;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s;
+        }
+
+        .envelope {
+            font-size: 5rem;
+            cursor: pointer;
+            animation: shake 3s infinite;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg); }
+            10%, 30% { transform: rotate(-10deg); }
+            20%, 40% { transform: rotate(10deg); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- 1. Intro Screen (Simple for 'Gaptek') -->
+    <div id="opener" onclick="startStory()">
+        <div class="envelope">💌</div>
+        <p style="margin-top: 20px; font-weight: bold;">Ada surat buat Chef Cantik...</p>
+        <p style="font-size: 0.9rem; opacity: 0.7;">(Tap amplopnya ya)</p>
+    </div>
+
+    <!-- Music (Hidden) -->
+    <audio id="bg-music" loop>
+        <source src="https://cdn.pixabay.com/download/audio/2022/10/25/audio_4f0923053c.mp3?filename=sweet-love-123896.mp3" type="audio/mp3">
+    </audio>
+
+    <!-- Background Floating Elements -->
+    <div class="bg-elements" id="bg-anim">
+        <!-- JS will populate sweets/flowers here -->
+    </div>
+
+    <!-- 2. Slides Container -->
+    <div class="card-container">
+        
+        <!-- Slide 1 -->
+        <div class="card active" id="slide-1">
+            <span class="icon-main">👩🏻‍🍳</span>
+            <h1>Hi, Celine...</h1>
+            <p>Aku perhatiin, kamu jago banget bikin kue.<br>Selalu teliti, sabar, dan hasilnya manis.</p>
+            <button class="btn" onclick="nextSlide(1)">Terus?</button>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="card" id="slide-2">
+            <span class="icon-main">🍰</span>
+            <h1>Resep Rahasia</h1>
+            <p>Hidup itu kayak adonan kue.</br>Kalau bahannya pas, rasanya bakal sempurna.</br>Aku udah cari "bahan" itu kemana-mana...</p>
+            <button class="btn" onclick="nextSlide(2)">Apa itu?</button>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="card" id="slide-3">
+            <span class="icon-main">✨</span>
+            <h1>It's You.</h1>
+            <p>Kamu itu "Gula" di kopiku.</br>Kamu "Filling" di rotiku.</br>Tanpa kamu, hariku hambar banget.</p>
+            <button class="btn" onclick="nextSlide(3)">Gombal ah! 😆</button>
+        </div>
+
+        <!-- Slide 4 (Final) -->
+        <div class="card" id="slide-4">
+            <span class="icon-main">❤️</span>
+            <h1>So, Chef...</h1>
+            <p>Mau nggak kita "masak" masa depan bareng?</br>Jadi partnerku buat selamanya?</p>
+            
+            <div class="btn-group">
+                <button class="btn" onclick="acceptLove()">Mau banget! 🥰</button>
+                <button class="btn btn-no" id="btn-no" onmouseover="dodgeButton()">Gak dulu</button>
+            </div>
+        </div>
+
+        <!-- Slide 5 (Success) -->
+        <div class="card" id="slide-success">
+            <span class="icon-main">🎂</span>
+            <h1>Yaaay!</h1>
+            <p>Makasih udah mau nerima aku! ❤️</br>Janji deh, aku bakal jadi "Oven" yang selalu menghangatkanmu. (Eaa)</p>
+            <p style="font-size: 0.9rem;">Love you, Cantik.</p>
+        </div>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script>
+        // --- Logic Sederhana ---
+
+        function startStory() {
+            // Hilangkan opener
+            document.getElementById('opener').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('opener').style.display = 'none';
+            }, 800);
+
+            // Play Music
+            const audio = document.getElementById('bg-music');
+            audio.volume = 0.6;
+            audio.play().catch(e => console.log("Audio perlu interaksi user"));
+            
+            // Start background elements
+            createFloatingElements();
+        }
+
+        function nextSlide(current) {
+            // Hide Current
+            const currentCard = document.getElementById(`slide-${current}`);
+            currentCard.classList.remove('active');
+            currentCard.classList.add('exit');
+
+            // Show Next
+            const nextCard = document.getElementById(`slide-${current + 1}`);
+            if (nextCard) {
+                setTimeout(() => {
+                    nextCard.classList.add('active');
+                }, 200);
+            }
+        }
+
+        // Tombol No yang Lari
+        function dodgeButton() {
+            // Hanya aktif jika bukan di HP (optional, tapi "Gaptek" friendly biasanya lebih mudah di HP kalau ga lari kencang)
+            const btnNo = document.getElementById('btn-no');
+            
+            // Random position terbatas dalam area kartu biar ga ilang
+            const maxMove = 100; // pixels
+            const x = (Math.random() - 0.5) * maxMove * 2;
+            const y = (Math.random() - 0.5) * maxMove * 2;
+
+            btnNo.style.transform = `translate(${x}px, ${y}px)`;
+            
+            // Ganti teks lucu
+            const texts = ["Yakin?", "Jangan dong!", "Error nih 😝", "Ups, licin!"];
+            btnNo.innerText = texts[Math.floor(Math.random() * texts.length)];
+        }
+        
+        // Handle Mobile Touch untuk 'Lari' (karena mouseover ga jalan di HP)
+        document.getElementById('btn-no').addEventListener('touchstart', (e) => {
+            e.preventDefault(); // Mencegah klik
+            dodgeButton();
+        });
+
+        function acceptLove() {
+             // Hide Final Question
+             const card4 = document.getElementById('slide-4');
+             card4.classList.remove('active');
+             card4.classList.add('exit');
+
+             // Show Success
+             const cardSuccess = document.getElementById('slide-success');
+             setTimeout(() => {
+                 cardSuccess.classList.add('active');
+                 triggerConfetti();
+             }, 200);
+        }
+
+        function triggerConfetti() {
+            const duration = 3 * 1000;
+            const end = Date.now() + duration;
+
+            (function frame() {
+                confetti({
+                    particleCount: 5,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: ['#ffafcc', '#ffd700', '#bde0fe']
+                });
+                confetti({
+                    particleCount: 5,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: ['#ffafcc', '#ffd700', '#bde0fe']
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+        }
+
+        function createFloatingElements() {
+            const container = document.getElementById('bg-anim');
+            const emojis = ['🌸', '✨', '🍰', '🧁', '🍪', '🤍'];
+            
+            for(let i=0; i<20; i++) {
+                const el = document.createElement('div');
+                el.classList.add('floating-item');
+                el.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                
+                // Random position setup
+                el.style.left = Math.random() * 100 + '%';
+                el.style.animationDuration = (Math.random() * 10 + 10) + 's'; // 10-20s float
+                el.style.animationDelay = (Math.random() * 5) + 's';
+                el.style.fontSize = (Math.random() * 1.5 + 1) + 'rem';
+                
+                container.appendChild(el);
+            }
+        }
+    </script>
+</body>
+</html>

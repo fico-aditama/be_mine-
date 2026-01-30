@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Boarding Pass - Destination: Us</title>
+    <style>
+        body { background: #e0e0e0; font-family: 'Courier New', Courier, monospace; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .ticket {  width: 700px; height: 300px; background: white; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); display: flex; overflow: hidden; position: relative; }
+        .left { flex: 2; padding: 30px; border-right: 2px dashed #ccc; position: relative; }
+        .right { flex: 1; padding: 30px; background: #ff6b6b; color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        
+        h1 { margin: 0 0 10px 0; color: #ff6b6b; font-size: 2rem; text-transform: uppercase; }
+        .label { font-size: 0.8rem; color: #999; text-transform: uppercase; margin-bottom: 5px; }
+        .value { font-size: 1.2rem; font-weight: bold; margin-bottom: 20px; color: #333; }
+        
+        .row { display: flex; gap: 40px; }
+        
+        .barcode { height: 50px; background: repeating-linear-gradient(90deg, #000 0px, #000 2px, #fff 2px, #fff 4px); margin-top: 20px; width: 80%; }
+        
+        .plane-icon { position: absolute; font-size: 10rem; opacity: 0.05; transform: rotate(-45deg); right: 20px; bottom: 20px; color: #ff6b6b;}
+        
+        .holes { position: absolute; right: -10px; top: 50%; width: 20px; height: 20px; background: #e0e0e0; border-radius: 50%; transform: translateY(-50%); }
+
+        .btn-checkin { background: white; color: #ff6b6b; border: none; padding: 10px 20px; font-weight: bold; cursor: pointer; border-radius: 5px; margin-top: 20px; text-transform: uppercase; }
+        .btn-checkin:hover { background: #ff6b6b; }
+        
+        .stamp { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-15deg); border: 5px solid #4CAF50; color: #4CAF50; font-size: 3rem; font-weight: bold; padding: 10px 20px; opacity: 0; transition: opacity 0.5s; border-radius: 10px;}
+    </style>
+</head>
+<body>
+    <div class="ticket">
+        <div class="left">
+            <h1>Boarding Pass</h1>
+            <div class="row">
+                <div>
+                    <div class="label">Passenger</div>
+                    <div class="value">CELINE</div>
+                </div>
+                <div>
+                    <div class="label">Flight</div>
+                    <div class="value">LOVE-2026</div>
+                </div>
+            </div>
+            <div class="row">
+                <div>
+                    <div class="label">From</div>
+                    <div class="value">SINGLE LIFE</div>
+                </div>
+                <div>
+                    <div class="label">To</div>
+                    <div class="value">OUR FUTURE</div>
+                </div>
+            </div>
+            <div class="row">
+                <div>
+                    <div class="label">Date</div>
+                    <div class="value">TODAY</div>
+                </div>
+                <div>
+                    <div class="label">Seat</div>
+                    <div class="value">BESIDE ME</div>
+                </div>
+            </div>
+            <div class="barcode"></div>
+            <div class="plane-icon">✈</div>
+            
+            <div class="stamp" id="stamp">APPROVED</div>
+        </div>
+        <div class="right">
+            <div style="font-size: 2rem; margin-bottom: 10px;">✈</div>
+            <div style="font-size: 1.5rem; font-weight: bold;">ADMIT ONE</div>
+            <div style="margin: 20px 0;">To My Heart</div>
+            <button class="btn-checkin" onclick="checkIn()">Check In (YES)</button>
+        </div>
+        <div class="holes"></div>
+    </div>
+
+    <script>
+        function checkIn() {
+            document.getElementById('stamp').style.opacity = 1;
+            document.querySelector('.right').style.background = '#4CAF50';
+            document.querySelector('.btn-checkin').innerText = "Checked In!";
+            alert("Boarding successful! Get ready for takeoff! ✈️❤️");
+        }
+    </script>
+</body>
+</html>

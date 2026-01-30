@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>project_love.py</title>
+    <style>
+        body { background: #1e1e1e; color: #d4d4d4; font-family: 'Consolas', 'Monaco', monospace; margin: 0; display: flex; height: 100vh; }
+        .sidebar { width: 250px; background: #252526; display: flex; flex-direction: column; padding-top: 10px; border-right: 1px solid #333; }
+        .sidebar-item { padding: 5px 20px; color: #cccccc; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 0.9rem; }
+        .sidebar-item:hover { background: #2a2d2e; }
+        .sidebar-item.active { background: #37373d; }
+        .main { flex: 1; display: flex; flex-direction: column; }
+        .tabs { display: flex; background: #252526; height: 35px; }
+        .tab { padding: 8px 15px; color: #fff; background: #1e1e1e; font-size: 0.8rem; border-right: 1px solid #333; display: flex; align-items: center; gap: 8px; }
+        .content { flex: 1; padding: 20px; overflow: auto; line-height: 1.5; font-size: 14px; position: relative; }
+        .keyword { color: #569cd6; } /* blue */
+        .string { color: #ce9178; } /* orange */
+        .function { color: #dcdcaa; } /* yellow */
+        .comment { color: #6a9955; } /* green */
+        .cursor { display: inline-block; width: 8px; height: 15px; background: #fff; animation: blink 1s infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+        
+        .output-panel { height: 150px; background: #1e1e1e; border-top: 1px solid #333; padding: 10px; font-family: 'Courier New', Courier, monospace; overflow-y: auto; }
+        .btn { background: #0e639c; color: white; border: none; padding: 8px 16px; cursor: pointer; margin-top: 20px; font-family: inherit; }
+        .btn:hover { background: #1177bb; }
+        .btn-run { position: absolute; top: 10px; right: 20px; background: #4caf50; border-radius: 4px; padding: 5px 15px; }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-item active">📄 main.py</div>
+        <div class="sidebar-item">📄 feeling.json</div>
+        <div class="sidebar-item">🖼️ future.png</div>
+    </div>
+    <div class="main">
+        <div class="tabs">
+            <div class="tab"><span>py</span> main.py</div>
+        </div>
+        <div class="content">
+            <button class="btn btn-run" onclick="runCode()">▶ Run</button>
+            <div id="code-area"></div>
+        </div>
+        <div class="output-panel" id="terminal">
+            <div style="color: #ccc">Termnial (Read-only)</div>
+            <div>> _</div>
+        </div>
+    </div>
+
+    <script>
+        const codeLines = [
+            "<span class='keyword'>import</span> love",
+            "<span class='keyword'>from</span> life <span class='keyword'>import</span> Future",
+            "",
+            "<span class='keyword'>def</span> <span class='function'>check_compatibility</span>(me, you):",
+            "    <span class='comment'># Calculating synergy...</span>",
+            "    <span class='keyword'>if</span> me.status == <span class='string'>'Chaotic'</span> <span class='keyword'>and</span> you.status == <span class='string'>'Sweet'</span>:",
+            "        <span class='keyword'>return</span> <span class='string'>'Perfect Match'</span>",
+            "",
+            "<span class='keyword'>class</span> <span class='function'>Proposal</span>:",
+            "    <span class='keyword'>def</span> <span class='function'>__init__</span>(self, answer):",
+            "        self.answer = answer",
+            "",
+            "    <span class='keyword'>def</span> <span class='function'>execute</span>(self):",
+            "        <span class='keyword'>if</span> self.answer == <span class='string'>'YES'</span>:",
+            "            print(<span class='string'>'Initializing Happy Life...'</span>)",
+            "        <span class='keyword'>else</span>:",
+            "            print(<span class='string'>'Error: Answer not accepted!'</span>)",
+            "",
+            "<span class='comment'># TODO: Waiting for user input...</span>",
+            "user_response = input(<span class='string'>'Will you be mine?'</span>)"
+        ];
+
+        let lineIndex = 0;
+        const codeArea = document.getElementById('code-area');
+        
+        function typeCode() {
+            if (lineIndex < codeLines.length) {
+                const div = document.createElement('div');
+                div.innerHTML = `<span style="color: #858585; margin-right: 15px;">${lineIndex + 1}</span>` + codeLines[lineIndex];
+                codeArea.appendChild(div);
+                lineIndex++;
+                setTimeout(typeCode, 50);
+            }
+        }
+
+        setTimeout(typeCode, 500);
+
+        function runCode() {
+            const term = document.getElementById('terminal');
+            term.innerHTML += "<div>> Running main.py...</div>";
+            setTimeout(() => {
+                term.innerHTML += "<div>> Compatibility Check: <span style='color: #4caf50'>100% SUCCESS</span></div>";
+            }, 800);
+            setTimeout(() => {
+                term.innerHTML += "<div style='margin-top: 10px; color: #569cd6'>?> Will you be my girlfriend? (Y/N): <span class='cursor'></span></div>";
+                createButtons();
+            }, 1500);
+        }
+
+        function createButtons() {
+            const term = document.getElementById('terminal');
+            const btnYes = document.createElement('button');
+            btnYes.innerText = "YES (Y)";
+            btnYes.className = "btn";
+            btnYes.style.background = "#4caf50";
+            btnYes.style.marginRight = "10px";
+            btnYes.onclick = () => {
+                term.innerHTML += "<br>> <span style='color: #ce9178'>'YES'</span> received.";
+                term.innerHTML += "<br>> <span style='color: #dcdcaa'>Deploying happiness v2026... Success! ❤️</span>";
+                alert("I knew it! Let's commit and push! ❤️");
+            };
+            
+            const btnNo = document.createElement('button');
+            btnNo.innerText = "NO (N)";
+            btnNo.className = "btn";
+            btnNo.style.background = "#f44336";
+            btnNo.onmouseover = function() {
+                this.style.position = 'absolute';
+                this.style.left = Math.random() * 300 + 'px';
+                this.style.top = Math.random() * 100 + 'px';
+            }
+
+            term.appendChild(btnYes);
+            term.appendChild(btnNo);
+        }
+    </script>
+</body>
+</html>
